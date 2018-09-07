@@ -1,20 +1,16 @@
 function CurryIt(func) {
-  let localArgs = []
-  let context = null
-  return function curry(...a) {
-    if (
-      this !=
-      function() {
-        return this
-      }.call(null)
-    )
-      context = this
-    if (!a.length) {
-      let retVal = func.call(context, ...localArgs)
-      localArgs = []
-      return retVal
+  let fn = func
+  let that
+
+  return function(...args) {
+    if (!that) that = this
+
+    if (args.length === 0) {
+      const result = fn()
+      fn = func
+      return result
     }
-    localArgs = localArgs.concat(a)
-    return curry
+
+    fn = fn.bind(that, ...arg)
   }
 }
