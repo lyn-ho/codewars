@@ -11,6 +11,6 @@ function CurryIt(func) {
       return result
     }
 
-    fn = fn.bind(that, ...arg)
+    fn = fn.bind(that, ...args)
   }
 }
